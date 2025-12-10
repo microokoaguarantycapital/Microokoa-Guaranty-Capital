@@ -1,1608 +1,269 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Microokoa Guaranty Capital | Donate Today, Borrow Now</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-    <style>
-        :root {
-            --primary-green: #006400;
-            --primary-orange: #FF6600;
-            --secondary-orange: #FF8C00;
-            --light-gray: #f8f9fa;
-            --medium-gray: #e9ecef;
-            --dark-gray: #495057;
-            --text-dark: #000000;
-            --text-light: #FFFFFF;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
-            --border-radius: 8px;
-            --transition: all 0.3s ease;
-            --container-width: 1200px;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Microokoa Guaranty Capital</title>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <!-- Favicon upload placeholder: Replace href with your uploaded favicon path -->
+  <link rel="icon" href="images/favicon-50x50.png" sizes="50x50" type="image/png" />
 
-        body {
-            font-family: 'Open Sans', sans-serif;
-            color: var(--text-dark);
-            background-color: var(--text-light);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+  <!-- Google Fonts Open Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
 
-        .container {
-            width: 100%;
-            max-width: var(--container-width);
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+  <link rel="manifest" href="manifest.json" />
 
-        /* Header Styles */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 80px;
-            background-color: var(--text-light);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            border-bottom: 2px solid var(--primary-green);
-            z-index: 1000;
-            transition: var(--transition);
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 100%;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            width: 20%;
-        }
-
-        .logo-text {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--primary-green);
-            text-decoration: none;
-            letter-spacing: -0.5px;
-        }
-
-        .logo-text span {
-            color: var(--primary-orange);
-        }
-
-        nav {
-            width: 60%;
-            display: flex;
-            justify-content: center;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-
-        .nav-links li {
-            position: relative;
-            margin: 0 15px;
-        }
-
-        .nav-links a {
-            color: var(--text-dark);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 15px;
-            padding: 8px 5px;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-green);
-        }
-
-        .nav-links a:hover:after {
-            width: 100%;
-        }
-
-        .nav-links a:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--primary-green);
-            transition: var(--transition);
-        }
-
-        .nav-links a.active {
-            color: var(--primary-green);
-        }
-
-        .nav-links a.active:after {
-            width: 100%;
-        }
-
-        .dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: var(--text-light);
-            box-shadow: var(--shadow);
-            min-width: 200px;
-            border-radius: var(--border-radius);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(10px);
-            transition: var(--transition);
-            z-index: 100;
-        }
-
-        .dropdown li {
-            margin: 0;
-            width: 100%;
-        }
-
-        .dropdown a {
-            display: block;
-            padding: 12px 20px;
-            border-bottom: 1px solid var(--medium-gray);
-        }
-
-        .dropdown a:last-child {
-            border-bottom: none;
-        }
-
-        .dropdown a:hover {
-            background-color: var(--primary-green);
-            color: var(--text-light);
-        }
-
-        .nav-links li:hover .dropdown {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .header-cta {
-            width: 20%;
-            text-align: right;
-        }
-
-        .btn-download {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--primary-orange);
-            color: var(--text-light);
-            padding: 10px 18px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 14px;
-            text-decoration: none;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-        }
-
-        .btn-download:hover {
-            background-color: var(--secondary-orange);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .btn-download i {
-            margin-right: 8px;
-            font-size: 18px;
-        }
-
-        .hamburger {
-            display: none;
-            font-size: 24px;
-            color: var(--primary-green);
-            cursor: pointer;
-        }
-
-        /* Hero Section */
-        .hero {
-            margin-top: 80px;
-            height: calc(100vh - 80px);
-            min-height: 600px;
-            max-height: 800px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-slider {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        .hero-slide {
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-
-        .hero-slide:after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(0, 100, 0, 0.2), rgba(0, 100, 0, 0.4));
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            color: var(--text-light);
-        }
-
-        .hero-text {
-            width: 60%;
-            padding-right: 40px;
-        }
-
-        .hero-text h1 {
-            font-size: 48px;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 20px;
-            color: var(--primary-orange);
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-        }
-
-        .hero-text p {
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 30px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-        }
-
-        .hero-tagline {
-            font-size: 18px;
-            background-color: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            padding: 15px;
-            border-radius: var(--border-radius);
-            border-left: 4px solid var(--primary-orange);
-            margin-bottom: 30px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 20px;
-        }
-
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--primary-orange);
-            color: var(--text-light);
-            padding: 16px 32px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 16px;
-            text-decoration: none;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--secondary-orange);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background-color: transparent;
-            color: var(--text-light);
-            padding: 16px 32px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 16px;
-            text-decoration: none;
-            transition: var(--transition);
-            box-shadow: 0 0 0 2px var(--text-light);
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-secondary:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            transform: translateY(-3px);
-        }
-
-        .calculator-container {
-            width: 40%;
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: var(--border-radius);
-            padding: 30px;
-            box-shadow: var(--shadow-hover);
-            backdrop-filter: blur(10px);
-            border: 2px solid var(--primary-green);
-        }
-
-        .calculator-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--primary-green);
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .calculator-input {
-            margin-bottom: 25px;
-        }
-
-        .calculator-input label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--text-dark);
-        }
-
-        .donation-slider {
-            width: 100%;
-            height: 10px;
-            -webkit-appearance: none;
-            appearance: none;
-            background: var(--medium-gray);
-            border-radius: 5px;
-            outline: none;
-        }
-
-        .donation-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: var(--primary-orange);
-            cursor: pointer;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-        }
-
-        .donation-slider::-moz-range-thumb {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: var(--primary-orange);
-            cursor: pointer;
-            border: none;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-        }
-
-        .donation-value {
-            text-align: center;
-            font-size: 32px;
-            font-weight: 800;
-            color: var(--primary-green);
-            margin: 15px 0;
-        }
-
-        .donation-value span {
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .calculator-results {
-            background-color: var(--light-gray);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            margin-bottom: 25px;
-        }
-
-        .result-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px dashed var(--medium-gray);
-        }
-
-        .result-item:last-child {
-            margin-bottom: 0;
-            border-bottom: none;
-        }
-
-        .result-label {
-            font-weight: 600;
-            color: var(--dark-gray);
-        }
-
-        .result-value {
-            font-weight: 800;
-            color: var(--primary-green);
-        }
-
-        .result-value.highlight {
-            color: var(--primary-orange);
-            font-size: 20px;
-        }
-
-        /* Main Content Sections */
-        .section {
-            padding: 80px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 36px;
-            font-weight: 800;
-            margin-bottom: 60px;
-            color: var(--primary-green);
-            position: relative;
-        }
-
-        .section-title:after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background-color: var(--primary-orange);
-            border-radius: 2px;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            font-size: 18px;
-            color: var(--dark-gray);
-            max-width: 800px;
-            margin: 0 auto 50px;
-        }
-
-        /* How It Works Section */
-        .steps-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-
-        .step-card {
-            background-color: var(--text-light);
-            border-radius: var(--border-radius);
-            padding: 40px 30px;
-            text-align: center;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border-top: 5px solid var(--primary-green);
-        }
-
-        .step-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .step-icon {
-            width: 80px;
-            height: 80px;
-            background-color: rgba(0, 100, 0, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 25px;
-        }
-
-        .step-icon i {
-            font-size: 36px;
-            color: var(--primary-green);
-        }
-
-        .step-number {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            background-color: var(--primary-orange);
-            color: var(--text-light);
-            border-radius: 50%;
-            line-height: 40px;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-
-        .step-card h3 {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--primary-green);
-        }
-
-        .step-card p {
-            color: var(--dark-gray);
-            margin-bottom: 20px;
-        }
-
-        /* Loan Products Section */
-        .products-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        .product-card {
-            background-color: var(--text-light);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border: 1px solid var(--medium-gray);
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .product-header {
-            background-color: var(--primary-green);
-            color: var(--text-light);
-            padding: 25px;
-            text-align: center;
-        }
-
-        .product-header i {
-            font-size: 42px;
-            margin-bottom: 15px;
-            color: var(--primary-orange);
-        }
-
-        .product-header h3 {
-            font-size: 24px;
-            font-weight: 700;
-        }
-
-        .product-body {
-            padding: 30px;
-        }
-
-        .product-features {
-            list-style: none;
-            margin-bottom: 25px;
-        }
-
-        .product-features li {
-            padding: 10px 0;
-            border-bottom: 1px solid var(--medium-gray);
-            display: flex;
-            align-items: center;
-        }
-
-        .product-features li:last-child {
-            border-bottom: none;
-        }
-
-        .product-features i {
-            color: var(--primary-green);
-            margin-right: 10px;
-            font-size: 14px;
-        }
-
-        .product-cta {
-            text-align: center;
-        }
-
-        .btn-outline {
-            display: inline-block;
-            color: var(--primary-orange);
-            font-weight: 700;
-            text-decoration: none;
-            padding: 12px 24px;
-            border: 2px solid var(--primary-orange);
-            border-radius: 50px;
-            transition: var(--transition);
-        }
-
-        .btn-outline:hover {
-            background-color: var(--primary-orange);
-            color: var(--text-light);
-        }
-
-        /* Trust Indicators */
-        .trust-section {
-            background-color: var(--light-gray);
-            padding: 60px 0;
-            border-top: 1px solid var(--medium-gray);
-            border-bottom: 1px solid var(--medium-gray);
-        }
-
-        .trust-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .trust-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            max-width: 200px;
-        }
-
-        .trust-icon {
-            width: 70px;
-            height: 70px;
-            background-color: var(--text-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
-            box-shadow: var(--shadow);
-        }
-
-        .trust-icon i {
-            font-size: 32px;
-            color: var(--primary-green);
-        }
-
-        .trust-item h4 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--primary-green);
-        }
-
-        /* Testimonials */
-        .testimonials-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .testimonial-card {
-            background-color: var(--text-light);
-            border-radius: var(--border-radius);
-            padding: 40px;
-            box-shadow: var(--shadow);
-            margin: 20px;
-            border-left: 5px solid var(--primary-orange);
-        }
-
-        .testimonial-text {
-            font-size: 18px;
-            font-style: italic;
-            margin-bottom: 25px;
-            color: var(--dark-gray);
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-        }
-
-        .author-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: var(--medium-gray);
-            margin-right: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 24px;
-            color: var(--primary-green);
-        }
-
-        .author-info h4 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 5px;
-            color: var(--primary-green);
-        }
-
-        .author-info p {
-            color: var(--dark-gray);
-            font-size: 14px;
-        }
-
-        /* Digital Wallet Section */
-        .wallet-section {
-            background-color: var(--primary-green);
-            padding: 60px 0;
-            color: var(--text-light);
-        }
-
-        .wallet-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .wallet-title {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .wallet-subtitle {
-            font-size: 18px;
-            max-width: 700px;
-            margin-bottom: 40px;
-            opacity: 0.9;
-        }
-
-        .wallet-providers {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 40px;
-        }
-
-        .wallet-provider {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .wallet-icon {
-            width: 80px;
-            height: 80px;
-            background-color: var(--text-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
-        }
-
-        .wallet-icon i {
-            font-size: 40px;
-            color: var(--primary-green);
-        }
-
-        .wallet-provider h4 {
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--primary-green);
-            color: var(--text-light);
-            padding-top: 60px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-column h3 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 25px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-column h3:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background-color: var(--primary-orange);
-        }
-
-        .footer-logo {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            color: var(--text-light);
-        }
-
-        .footer-logo span {
-            color: var(--primary-orange);
-        }
-
-        .footer-column p {
-            margin-bottom: 20px;
-            opacity: 0.9;
-            line-height: 1.7;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: var(--text-light);
-            text-decoration: none;
-            opacity: 0.9;
-            transition: var(--transition);
-        }
-
-        .footer-links a:hover {
-            opacity: 1;
-            color: var(--primary-orange);
-            padding-left: 5px;
-        }
-
-        .contact-info {
-            list-style: none;
-        }
-
-        .contact-info li {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .contact-info i {
-            color: var(--primary-orange);
-            margin-right: 10px;
-            margin-top: 5px;
-            font-size: 18px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-link {
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-light);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .social-link:hover {
-            background-color: var(--primary-orange);
-            transform: translateY(-3px);
-        }
-
-        .footer-bottom {
-            background-color: rgba(0, 0, 0, 0.2);
-            padding: 25px 0;
-            text-align: center;
-        }
-
-        .footer-bottom p {
-            margin-bottom: 10px;
-            opacity: 0.8;
-            font-size: 14px;
-        }
-
-        .footer-bottom a {
-            color: var(--primary-orange);
-            text-decoration: none;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .hero-text h1 {
-                font-size: 40px;
-            }
-            
-            .hero-text p {
-                font-size: 20px;
-            }
-            
-            .steps-container,
-            .products-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header-container {
-                justify-content: space-between;
-            }
-            
-            .logo {
-                width: auto;
-            }
-            
-            nav {
-                display: none;
-                position: fixed;
-                top: 80px;
-                left: 0;
-                width: 100%;
-                background-color: var(--text-light);
-                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-                padding: 20px;
-                z-index: 999;
-            }
-            
-            .nav-links {
-                flex-direction: column;
-            }
-            
-            .nav-links li {
-                margin: 0 0 15px 0;
-            }
-            
-            .dropdown {
-                position: static;
-                opacity: 1;
-                visibility: visible;
-                transform: none;
-                box-shadow: none;
-                margin-top: 10px;
-                display: none;
-            }
-            
-            .nav-links li:hover .dropdown {
-                display: block;
-            }
-            
-            .hamburger {
-                display: block;
-            }
-            
-            .header-cta {
-                display: none;
-            }
-            
-            .hero {
-                height: auto;
-                min-height: auto;
-                padding: 100px 0 60px;
-            }
-            
-            .hero-content {
-                flex-direction: column;
-            }
-            
-            .hero-text,
-            .calculator-container {
-                width: 100%;
-                padding-right: 0;
-                margin-bottom: 40px;
-            }
-            
-            .hero-text h1 {
-                font-size: 32px;
-            }
-            
-            .hero-text p {
-                font-size: 18px;
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .section-title {
-                font-size: 28px;
-            }
-            
-            .steps-container,
-            .products-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .logo-text {
-                font-size: 20px;
-            }
-            
-            .hero-text h1 {
-                font-size: 28px;
-            }
-            
-            .section {
-                padding: 60px 0;
-            }
-            
-            .testimonial-card {
-                padding: 30px 20px;
-            }
-        }
-    </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container header-container">
-            <div class="logo">
-                <a href="#" class="logo-text">Microokoa<span>Guaranty Capital</span></a>
-            </div>
-            
-            <div class="hamburger" id="hamburger">
-                <i class="fas fa-bars"></i>
-            </div>
-            
-            <nav id="main-nav">
-                <ul class="nav-links">
-                    <li><a href="#" class="active">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li>
-                        <a href="#">Our Products <i class="fas fa-chevron-down"></i></a>
-                        <ul class="dropdown">
-                            <li><a href="#">QuickLoans</a></li>
-                            <li><a href="#">BusinessLoans</a></li>
-                            <li><a href="#">Donate & Access</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">Borrow <i class="fas fa-chevron-down"></i></a>
-                        <ul class="dropdown">
-                            <li><a href="#">QuickLoans</a></li>
-                            <li><a href="#">BusinessLoans</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Donate</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">Careers</a></li>
-                    <li><a href="#">FAQs</a></li>
-                </ul>
-            </nav>
-            
-            <div class="header-cta">
-                <a href="#" class="btn-download"><i class="fas fa-mobile-alt"></i> Download App</a>
-            </div>
-        </div>
-    </header>
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="#" class="logo" aria-label="Microokoa Guaranty Capital Home">
+        <!-- Replace the SVG content below with your uploaded logo SVG -->
+        <svg width="80" height="50" viewBox="0 0 80 50" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="logoTitle">
+          <title id="logoTitle">Microokoa Guaranty Capital Logo</title>
+          <rect width="80" height="50" fill="#006400" rx="8" />
+          <text x="10" y="32" fill="#fff" font-family="Open Sans, sans-serif" font-weight="bold" font-size="16">MGC</text>
+        </svg>
+      </a>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-slider owl-carousel" id="hero-slider">
-            <!-- Slides will be added via JavaScript -->
-        </div>
-        
-        <div class="container hero-content">
-            <div class="hero-text">
-                <h1>We are Lending to the unbanked</h1>
-                <p>Donate Today, Borrow Now!</p>
-                
-                <div class="hero-tagline">
-                    <p>Donate as little as Kshs 200 and access loans worth 10x your donation.</p>
-                </div>
-                
-                <div class="hero-tagline">
-                    <p>Get 10x Loan Value by doing a Min Donation Kshs 200. Processed within 2h, Quick Approval.</p>
-                </div>
-                
-                <div class="hero-tagline">
-                    <p>We are a Community Powered Financing. Your donation helps others uplift other customers by enabling their loans as other customers donations provided by them enables your loan.</p>
-                </div>
-                
-                <div class="hero-buttons">
-                    <a href="#" class="btn-primary">Donate Today, Apply Now</a>
-                    <a href="#" class="btn-secondary">Learn How It Works</a>
-                </div>
+      <nav class="main-nav" role="navigation" aria-label="Primary navigation">
+        <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false" aria-label="Toggle menu">&#9776;</button>
+        <ul id="primary-menu" class="menu">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li class="has-dropdown">
+            <a href="#" aria-haspopup="true" aria-expanded="false">Our Products</a>
+            <ul class="submenu">
+              <li><a href="#">QuickLoans</a></li>
+              <li><a href="#">BusinessLoans</a></li>
+              <li><a href="#">Donate & Access</a></li>
+            </ul>
+          </li>
+          <li class="has-dropdown">
+            <a href="#" aria-haspopup="true" aria-expanded="false">Borrow</a>
+            <ul class="submenu">
+              <li><a href="#">QuickLoans</a></li>
+              <li><a href="#">Business Loans</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Donate</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li class="has-accordion">
+            <button aria-expanded="false" aria-controls="faqs-content">FAQs</button>
+            <div id="faqs-content" class="accordion-content" hidden>
+              <h3>What is a donation-based loan?</h3>
+              <p>A donation-based loan allows community-funded lending with benefits multiplied by collective contributions.</p>
+              <!-- Add other FAQs as needed -->
             </div>
-            
-            <div class="calculator-container">
-                <h2 class="calculator-title">Loan Calculator</h2>
-                
-                <div class="calculator-input">
-                    <label for="donation-slider">Your Donation (KSH)</label>
-                    <input type="range" id="donation-slider" class="donation-slider" min="200" max="5000" step="100" value="2000">
-                    <div class="donation-value" id="donation-value">2,000 <span>KSH</span></div>
-                </div>
-                
-                <div class="calculator-results">
-                    <div class="result-item">
-                        <span class="result-label">Loan Access:</span>
-                        <span class="result-value highlight" id="loan-access">20,000 KSH</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="result-label">Community Impact:</span>
-                        <span class="result-value" id="community-impact">10+ people helped</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="result-label">Processing Time:</span>
-                        <span class="result-value">Within 2 hours</span>
-                    </div>
-                </div>
-                
-                <button class="btn-primary" style="width: 100%;">Make Donation</button>
-            </div>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="cta">
+        <a href="#" class="btn btn-cta" tabindex="0" aria-label="Download the Microokoa Guaranty Capital app">Download the MICROOKOA GUARANTY CAPITAL app</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" role="region" aria-label="Hero section with loan calculator and donation call to action">
+      <div class="hero-slider">
+        <div class="slide" style="background-image: url('images/slide1.jpg');" aria-hidden="false">
+          <div class="overlay"></div>
         </div>
+        <div class="slide" style="background-image: url('images/slide2.jpg');" aria-hidden="true"></div>
+        <div class="slide" style="background-image: url('images/slide3.jpg');" aria-hidden="true"></div>
+      </div>
+      <div class="hero-content container">
+        <h1 style="color: #FF6600;">We are Lending to the unbanked</h1>
+        <p class="subtitle">Donate Today, Borrow Now!</p>
+        <p class="slogan black-text">
+          Donate as little as Kshs 200 and access loans worth 10x your donation.<br />
+          Donate, Borrow, Thrive.<br />
+          Get 10x Loan Value by doing a Min Donation Kshs 200.<br />
+          Processed within 2h, Quick Approval.<br />
+          We are a Community Powered Financing.<br />
+          Your donation helps others uplift other customers by enabling their loans as other customers' donations provided by them enable your loan.
+        </p>
+
+        <div class="loan-calculator" aria-label="Loan Calculator">
+          <label for="donationRange">Your Donation (KSH)</label>
+          <input type="range" id="donationRange" name="donation" min="200" max="10000" step="100" value="200" />
+          <output id="donationValue">Ksh 200</output>
+          <p>Loan Access: <span id="loanAccess">Ksh 2000</span></p>
+          <p>Community Impact: <span id="communityImpact">10+ people helped</span></p>
+        </div>
+
+        <div class="hero-cta-buttons">
+          <a href="#" class="btn btn-primary" style="background-color: #FF6600;">Donate today, Apply Now</a>
+          <a href="#" class="btn btn-secondary" style="border-color: #006400; color: #006400;">Learn How It Works</a>
+        </div>
+      </div>
     </section>
 
-    <!-- How It Works Section -->
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title">How It Works</h2>
-            <p class="section-subtitle">Our simple three-step process to empower you and your community through donation-based lending</p>
-            
-            <div class="steps-container">
-                <div class="step-card">
-                    <div class="step-number">1</div>
-                    <div class="step-icon">
-                        <i class="fas fa-hand-holding-usd"></i>
-                    </div>
-                    <h3>Contribute</h3>
-                    <p>Contribute as little as Kshs 200 to our community fund. Every donation helps build the lending pool that benefits all members.</p>
-                </div>
-                
-                <div class="step-card">
-                    <div class="step-number">2</div>
-                    <div class="step-icon">
-                        <i class="fas fa-file-invoice-dollar"></i>
-                    </div>
-                    <h3>Access Loans</h3>
-                    <p>Access loans worth 10x your donation amount. Quick approval process with funds disbursed within hours of application.</p>
-                </div>
-                
-                <div class="step-card">
-                    <div class="step-number">3</div>
-                    <div class="step-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Grow & Thrive</h3>
-                    <p>Grow your business and build financial stability. Join a community that supports each other's financial growth and success.</p>
-                </div>
-            </div>
-            
-            <div style="text-align: center;">
-                <a href="#" class="btn-primary">Start Donating Now</a>
-            </div>
-        </div>
+    <section class="how-it-works container" aria-labelledby="how-it-works-title">
+      <h2 id="how-it-works-title" style="color: #FF6600;">How It Works</h2>
+      <div class="steps-grid">
+        <article class="step">
+          <svg class="icon green" aria-hidden="true" focusable="false" width="48" height="48"><!-- wallet icon --></svg>
+          <h3>Contribute</h3>
+          <p>Contribute as little as Kshs 200 to our community fund</p>
+        </article>
+        <article class="step">
+          <svg class="icon orange" aria-hidden="true" focusable="false" width="48" height="48"><!-- loan doc icon --></svg>
+          <h3>Borrow</h3>
+          <p>Access loans worth 10x your donation amount</p>
+        </article>
+        <article class="step">
+          <svg class="icon green" aria-hidden="true" focusable="false" width="48" height="48"><!-- growth chart icon --></svg>
+          <h3>Thrive</h3>
+          <p>Grow your business and build financial stability</p>
+        </article>
+      </div>
+      <a href="#" class="btn btn-primary" style="background-color: #006400;">Donate</a>
     </section>
 
-    <!-- Loan Products Section -->
-    <section class="section" style="background-color: var(--light-gray);">
-        <div class="container">
-            <h2 class="section-title">Our Loan Products</h2>
-            <p class="section-subtitle">Tailored financing solutions designed to meet your specific needs and help you achieve your financial goals</p>
-            
-            <div class="products-container">
-                <div class="product-card">
-                    <div class="product-header">
-                        <i class="fas fa-bolt"></i>
-                        <h3>QuickLoans</h3>
-                    </div>
-                    <div class="product-body">
-                        <p>Fast, small loans for emergencies and immediate needs. Get approved within hours.</p>
-                        
-                        <ul class="product-features">
-                            <li><i class="fas fa-check-circle"></i> Up to Kshs 30,000</li>
-                            <li><i class="fas fa-check-circle"></i> 24-hour approval</li>
-                            <li><i class="fas fa-check-circle"></i> Flexible repayment terms</li>
-                            <li><i class="fas fa-check-circle"></i> No collateral required</li>
-                        </ul>
-                        
-                        <div class="product-cta">
-                            <a href="#" class="btn-outline">Learn More</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-header">
-                        <i class="fas fa-briefcase"></i>
-                        <h3>BusinessLoans</h3>
-                    </div>
-                    <div class="product-body">
-                        <p>Capital for business expansion, inventory, and equipment. Grow your enterprise with our support.</p>
-                        
-                        <ul class="product-features">
-                            <li><i class="fas fa-check-circle"></i> Up to Kshs 50,000</li>
-                            <li><i class="fas fa-check-circle"></i> 3-6 month terms</li>
-                            <li><i class="fas fa-check-circle"></i> Business training included</li>
-                            <li><i class="fas fa-check-circle"></i> Growth-focused advisory</li>
-                        </ul>
-                        
-                        <div class="product-cta">
-                            <a href="#" class="btn-outline">Learn More</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-header">
-                        <i class="fas fa-users"></i>
-                        <h3>Donate & Access</h3>
-                    </div>
-                    <div class="product-body">
-                        <p>Donate to build community capital and unlock your borrowing potential. Empower others as you empower yourself.</p>
-                        
-                        <ul class="product-features">
-                            <li><i class="fas fa-check-circle"></i> Kshs 200 minimum donation</li>
-                            <li><i class="fas fa-check-circle"></i> 10x loan multiplier</li>
-                            <li><i class="fas fa-check-circle"></i> Community impact tracking</li>
-                            <li><i class="fas fa-check-circle"></i> Transparent fund allocation</li>
-                        </ul>
-                        
-                        <div class="product-cta">
-                            <a href="#" class="btn-outline">Learn More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <section class="loan-products container" aria-labelledby="loan-products-title">
+      <h2 id="loan-products-title" style="color: #FF6600;">Our Loan Products</h2>
+      <p>Tailored financing solutions for your needs</p>
+      <div class="products-grid">
+        <article class="product quickloans">
+          <svg class="icon green" aria-hidden="true" focusable="false" width="48" height="48"><!-- quick loans icon --></svg>
+          <h3>QuickLoans</h3>
+          <p>Fast, small loans for emergencies and immediate needs. Get approved within hours. Up to Kshs 30,000. 24-hour approval. Flexible repayment.</p>
+          <a href="#" class="link-orange">Learn More</a>
+        </article>
+        <article class="product businessloans">
+          <svg class="icon orange" aria-hidden="true" focusable="false" width="48" height="48"><!-- business loans icon --></svg>
+          <h3>BusinessLoans</h3>
+          <p>Capital for business expansion, inventory, and equipment. Grow your enterprise. Up to Kshs 50,000. 3-6 month terms. Business training included.</p>
+          <a href="#" class="link-orange">Learn More</a>
+        </article>
+        <article class="product donate-access">
+          <svg class="icon green" aria-hidden="true" focusable="false" width="48" height="48"><!-- donate icon --></svg>
+          <h3>Donate & Access</h3>
+          <p>Donate to build community capital and unlock your borrowing potential. Kshs 200 minimum. 10x loan multiplier. Community impact.</p>
+          <a href="#" class="link-orange">Learn More</a>
+        </article>
+      </div>
     </section>
 
-    <!-- Trust Indicators -->
-    <section class="trust-section">
-        <div class="container">
-            <div class="trust-container">
-                <div class="trust-item">
-                    <div class="trust-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h4>Regulated by CBK</h4>
-                    <p>Fully compliant with Central Bank of Kenya regulations</p>
-                </div>
-                
-                <div class="trust-item">
-                    <div class="trust-icon">
-                        <i class="fas fa-lock"></i>
-                    </div>
-                    <h4>Secure SSL</h4>
-                    <p>Bank-level encryption for all transactions and data</p>
-                </div>
-                
-                <div class="trust-item">
-                    <div class="trust-icon">
-                        <i class="fas fa-user-friends"></i>
-                    </div>
-                    <h4>Community First</h4>
-                    <p>100% of donations go to community lending pool</p>
-                </div>
-                
-                <div class="trust-item">
-                    <div class="trust-icon">
-                        <i class="fas fa-hand-holding-heart"></i>
-                    </div>
-                    <h4>Non-Deposit Taking</h4>
-                    <p>We do NOT accept public deposits</p>
-                </div>
-            </div>
+    <section class="benefits-testimonials container" aria-labelledby="benefits-title">
+      <h2 id="benefits-title" style="color: #006400;">Benefits & Testimonials</h2>
+      <div class="calculator-testimonials-grid">
+        <div class="donation-calculator">
+          <label for="donationRangeMain">Your Donation (KSH)</label>
+          <input type="range" id="donationRangeMain" name="donationMain" min="200" max="10000" step="100" value="2000" />
+          <output id="donationValueMain">Ksh 2000</output>
+          <p>Loan Access: <span id="loanAccessMain">Ksh 20,000</span></p>
+          <p>Community Impact: <span id="communityImpactMain">10+ people helped</span></p>
+          <button class="btn btn-primary" style="background-color: #006400;">Make Donation</button>
         </div>
+
+        <div class="testimonials-carousel" aria-label="Testimonials Carousel">
+          <div class="testimonial active">
+            <blockquote>"Microokoa helped me scale my business faster than I imagined."</blockquote>
+            <cite>- Faith M.</cite>
+          </div>
+          <div class="testimonial">
+            <blockquote>"I love the community-focused lending model."</blockquote>
+            <cite>- James K.</cite>
+          </div>
+          <div class="testimonial">
+            <blockquote>"Quick approval and life-changing loan accessibility."</blockquote>
+            <cite>- Amina R.</cite>
+          </div>
+          <button class="carousel-prev" aria-label="Previous testimonial">&#10094;</button>
+          <button class="carousel-next" aria-label="Next testimonial">&#10095;</button>
+        </div>
+      </div>
+
+      <div class="trust-indicators">
+        <span class="badge">We don’t accept savings from the public</span>
+        <span class="badge">Secure SSL</span>
+        <div class="partners">
+          <img src="images/mpesa.svg" alt="M-Pesa logo" />
+          <img src="images/airtelmoney.svg" alt="Airtel Money logo" />
+          <!-- Add other partner logos -->
+        </div>
+      </div>
     </section>
 
-    <!-- Testimonials -->
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title">What Our Community Says</h2>
-            <p class="section-subtitle">Hear from members who have transformed their lives through our donation-based lending model</p>
-            
-            <div class="testimonials-container owl-carousel" id="testimonials-slider">
-                <!-- Testimonials will be added via JavaScript -->
-            </div>
-        </div>
+    <section class="digital-wallet container" aria-label="Digital Wallet Integration">
+      <h2 style="color: #006400;">Digital Wallet Integration</h2>
+      <p>Seamless cashless donations and loans through trusted providers:</p>
+      <div class="wallet-icons">
+        <img src="images/mpesa.svg" alt="M-Pesa icon" width="64" height="64" />
+        <img src="images/airtelmoney.svg" alt="Airtel Money icon" width="64" height="64" />
+      </div>
     </section>
 
-    <!-- Digital Wallet Section -->
-    <section class="wallet-section">
-        <div class="container wallet-container">
-            <h2 class="wallet-title">Seamless Digital Wallet Integration</h2>
-            <p class="wallet-subtitle">Make donations and receive loans instantly through Kenya's leading mobile money platforms. Our partnerships ensure secure, cashless transactions that are fast and convenient.</p>
-            
-            <div class="wallet-providers">
-                <div class="wallet-provider">
-                    <div class="wallet-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h4>M-Pesa</h4>
-                    <p>Instant transactions</p>
-                </div>
-                
-                <div class="wallet-provider">
-                    <div class="wallet-icon">
-                        <i class="fas fa-wallet"></i>
-                    </div>
-                    <h4>Airtel Money</h4>
-                    <p>Secure payments</p>
-                </div>
-                
-                <div class="wallet-provider">
-                    <div class="wallet-icon">
-                        <i class="fas fa-university"></i>
-                    </div>
-                    <h4>Bank Transfer</h4>
-                    <p>Direct bank integration</p>
-                </div>
-            </div>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-grid">
+      <div class="footer-branding">
+        <h2>Microokoa Guaranty Capital</h2>
+        <p>Donate Today, Borrow Now! A donation-driven community development financial institution (CDFI)</p>
+      </div>
+
+      <nav class="footer-quick-links" aria-label="Footer Quick Links">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Donate</a></li>
+          <li><a href="#">Loan Products</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer-loan-products">
+        <h3>Loan Products</h3>
+        <ul>
+          <li><a href="#">QuickLoans</a></li>
+          <li><a href="#">BusinessLoans</a></li>
+          <li><a href="#">Donate & Access</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contact">
+        <h3>Contact Info</h3>
+        <address>
+          <p>+254-710-340-896 Mon-Fri: 8am-6pm</p>
+          <p><a href="mailto:microokoaguarantycapital@gmail.com">microokoaguarantycapital@gmail.com</a></p>
+          <p>Call Us +254-710-340-896 Available 8AM - 5PM EAT</p>
+          <p>Get in Touch - Have questions? We're here to help you understand our unique donation-based model.</p>
+        </address>
+
+        <div class="social-media-links" role="region" aria-label="Social media links">
+          <a href="https://wa.me/254710340896" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
+            <svg width="40" height="40" fill="#006400" viewBox="0 0 24 24"><!-- WhatsApp SVG --></svg>
+          </a>
+          <a href="https://twitter.com/MicrookoaGuaCap" aria-label="Twitter X" target="_blank" rel="noopener noreferrer">
+            <svg width="40" height="40" fill="#006400" viewBox="0 0 24 24"><!-- Twitter SVG --></svg>
+          </a>
+          <a href="https://facebook.com/MicrookoaGuaCap" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+            <svg width="40" height="40" fill="#006400" viewBox="0 0 24 24"><!-- Facebook SVG --></svg>
+          </a>
+          <a href="https://youtube.com/channel/yourchannel" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+            <svg width="40" height="40" fill="#006400" viewBox="0 0 24 24"><!-- YouTube SVG --></svg>
+          </a>
         </div>
-    </section>
+      </div>
+    </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <div class="footer-logo">Microokoa<span>Guaranty Capital</span></div>
-                    <p>Donate Today, Borrow Now! A donation-driven community development financial institution (CDFI) empowering communities through innovative, donation-based financing.</p>
-                    
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Donate</a></li>
-                        <li><a href="#">Loan Products</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Loan Products</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">QuickLoans</a></li>
-                        <li><a href="#">BusinessLoans</a></li>
-                        <li><a href="#">Donate & Access</a></li>
-                        <li><a href="#">How It Works</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Contact Info</h3>
-                    <ul class="contact-info">
-                        <li>
-                            <i class="fas fa-phone-alt"></i>
-                            <div>
-                                <strong>+254-710-340-896</strong>
-                                <p>Mon-Fri: 8am-6pm</p>
-                            </div>
-                        </li>
-                        <li>
-                            <i class="fas fa-envelope"></i>
-                            <div>
-                                <strong>microokoaguarantycapital@gmail.com</strong>
-                                <p>Email support</p>
-                            </div>
-                        </li>
-                        <li>
-                            <i class="fas fa-clock"></i>
-                            <div>
-                                <strong>Available 8AM - 5PM EAT</strong>
-                                <p>We're here to help you understand our unique donation-based model.</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <div class="container">
-                <p>&copy; 2024 Microokoa Guaranty Capital. All rights reserved. | Created by jobsimiyu8-a11y</p>
-                <p>We are a non-deposit-taking microfinance institution and do NOT accept public deposits.</p>
-                <p><strong>Our Mission:</strong> To empower communities through innovative, donation-based financing that creates sustainable economic growth and financial inclusion for all.</p>
-            </div>
-        </div>
-    </footer>
+    <div class="footer-bottom-bar">
+      <p>© 2024 Microokoa Guaranty Capital. All rights reserved. | Created by jobsimiyu8-a11y</p>
+      <p>We are a non-deposit-taking microfinance institution and do NOT accept public deposits.</p>
+      <p>Mission: To empower communities through innovative, donation-based financing that creates sustainable economic growth and financial inclusion for all.</p>
+    </div>
+  </footer>
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    
-    <script>
-        // Mobile Navigation Toggle
-        document.getElementById('hamburger').addEventListener('click', function() {
-            const nav = document.getElementById('main-nav');
-            const icon = this.querySelector('i');
-            
-            if (nav.style.display === 'block') {
-                nav.style.display = 'none';
-                icon.className = 'fas fa-bars';
-            } else {
-                nav.style.display = 'block';
-                icon.className = 'fas fa-times';
-            }
-        });
-
-        // Loan Calculator
-        const donationSlider = document.getElementById('donation-slider');
-        const donationValue = document.getElementById('donation-value');
-        const loanAccess = document.getElementById('loan-access');
-        const communityImpact = document.getElementById('community-impact');
-
-        function updateCalculator() {
-            const donation = parseInt(donationSlider.value);
-            const loan = donation * 10;
-            const impact = Math.floor(donation / 200);
-            
-            // Format numbers with commas
-            donationValue.innerHTML = donation.toLocaleString() + ' <span>KSH</span>';
-            loanAccess.innerHTML = loan.toLocaleString() + ' KSH';
-            communityImpact.innerHTML = impact + '+ people helped';
-        }
-
-        donationSlider.addEventListener('input', updateCalculator);
-        updateCalculator(); // Initialize
-
-        // Hero Image Slider
-        $(document).ready(function() {
-            // Hero Slider
-            $('#hero-slider').owlCarousel({
-                items: 1,
-                loop: true,
-                autoplay: true,
-                autoplayTimeout: 5000,
-                autoplayHoverPause: true,
-                dots: false,
-                nav: false,
-                animateOut: 'fadeOut',
-                animateIn: 'fadeIn'
-            });
-            
-            // Add slides dynamically (in a real site, these would be actual images)
-            const heroSlides = [
-                { title: "Community Support", desc: "Diverse group donating via mobile to support each other" },
-                { title: "Business Growth", desc: "Entrepreneurs thriving with our loan products" },
-                { title: "Financial Inclusion", desc: "Empowering the unbanked through innovative financing" },
-                { title: "Secure Transactions", desc: "Safe and transparent donation-based lending" }
-            ];
-            
-            heroSlides.forEach(slide => {
-                $('#hero-slider').trigger('add.owl.carousel', [
-                    `<div class="hero-slide" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-                        <div class="container" style="height: 100%; display: flex; align-items: center;">
-                            <div style="max-width: 600px;">
-                                <h2 style="color: white; font-size: 42px; margin-bottom: 20px;">${slide.title}</h2>
-                                <p style="color: white; font-size: 20px;">${slide.desc}</p>
-                            </div>
-                        </div>
-                    </div>`
-                ]);
-            });
-            $('#hero-slider').trigger('refresh.owl.carousel');
-            
-            // Testimonials Slider
-            $('#testimonials-slider').owlCarousel({
-                items: 1,
-                loop: true,
-                autoplay: true,
-                autoplayTimeout: 6000,
-                dots: true,
-                nav: false,
-                responsive: {
-                    768: {
-                        items: 2
-                    },
-                    1024: {
-                        items: 3
-                    }
-                }
-            });
-            
-            // Add testimonials dynamically
-            const testimonials = [
-                {
-                    name: "James Kariuki",
-                    role: "Small Business Owner",
-                    text: "Thanks to Microokoa, I expanded my grocery store. The 10x loan multiplier is real - my Kshs 500 donation got me a Kshs 5,000 loan!"
-                },
-                {
-                    name: "Sarah Mwende",
-                    role: "Market Trader",
-                    text: "The quick approval saved my business when I needed emergency funds. Processed within 2 hours as promised!"
-                },
-                {
-                    name: "Peter Omondi",
-                    role: "Community Leader",
-                    text: "Our whole community benefits from this model. We're not just borrowing, we're investing in each other's success."
-                },
-                {
-                    name: "Grace Atieno",
-                    role: "Entrepreneur",
-                    text: "The business training that came with my loan was invaluable. I've doubled my revenue in just 3 months!"
-                }
-            ];
-            
-            testimonials.forEach(testimonial => {
-                $('#testimonials-slider').trigger('add.owl.carousel', [
-                    `<div class="testimonial-card">
-                        <p class="testimonial-text">"${testimonial.text}"</p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar">${testimonial.name.charAt(0)}</div>
-                            <div class="author-info">
-                                <h4>${testimonial.name}</h4>
-                                <p>${testimonial.role}</p>
-                            </div>
-                        </div>
-                    </div>`
-                ]);
-            });
-            $('#testimonials-slider').trigger('refresh.owl.carousel');
-            
-            // Smooth scrolling for navigation links
-            $('a[href^="#"]').on('click', function(event) {
-                if (this.hash !== "") {
-                    event.preventDefault();
-                    const hash = this.hash;
-                    $('html, body').animate({
-                        scrollTop: $(hash).offset().top - 80
-                    }, 800);
-                }
-            });
-            
-            // Sticky header on scroll
-            $(window).scroll(function() {
-                if ($(this).scrollTop() > 100) {
-                    $('header').css({
-                        'box-shadow': '0 5px 15px rgba(0, 0, 0, 0.1)',
-                        'height': '70px'
-                    });
-                } else {
-                    $('header').css({
-                        'box-shadow': '0 2px 10px rgba(0, 0, 0, 0.05)',
-                        'height': '80px'
-                    });
-                }
-            });
-            
-            // Close mobile menu when clicking a link
-            $('.nav-links a').on('click', function() {
-                if (window.innerWidth <= 768) {
-                    $('#main-nav').css('display', 'none');
-                    $('#hamburger i').attr('class', 'fas fa-bars');
-                }
-            });
-        });
-    </script>
+  <script src="script.js"></script>
 </body>
+
 </html>
