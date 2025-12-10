@@ -1,0 +1,419 @@
+/**
+ * Microokoa Guaranty Capital - Loan Calculator
+ * Handles all calculator functionality
+ */
+
+class LoanCalculator {
+    constructor() {
+        this.donationSlider = document.getElementById('donation-slider');
+        this.donationAmount = document.getElementById('donation-amount');
+        this.loanValue = document.getElementById('loan-value');
+        this.impactValue = document.getElementById('impact-value');
+        this.calculateBtn = document.getElementById('calculate-btn');
+        this.donateNowBtn = document.getElementById('donate-now-btn');
+        
+        this.init();
+    }
+    
+    init() {
+        if (!this.donationSlider) return;
+        
+        // Set initial values
+        this.updateCalculator();
+        
+        // Event listeners
+        this.donationSlider.addEventListener('input', () => this.updateCalculator());
+        this.donationSlider.addEventListener('change', () => this.updateCalculator());
+        
+        if (this.calculateBtn) {
+            this.calculateBtn.addEventListener('click', () => this.handleCalculate());
+        }
+        
+        if (this.donateNowBtn) {
+            this.donateNowBtn.addEventListener('click', () => this.handleDonate());
+        }
+        
+        // Add keyboard support for slider
+        this.donationSlider.addEventListener('keydown', (e) => {
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+                e.preventDefault();
+                this.handleSliderKeyPress(e.key);
+            }
+        });
+        
+        console.log('Loan Calculator initialized');
+    }
+    
+    updateCalculator() {
+        const donation = parseInt(this.donationSlider.value);
+        const loan = donation * 10;
+        const impact = Math.floor(donation / 200);
+        
+        // Update display values
+        this.donationAmount.textContent = this.formatNumber(donation);
+        this.loanValue.textContent = this.formatCurrency(loan);
+        this.impactValue.textContent = `${impact}+ people helped`;
+        
+        // Update slider background (visual feedback)
+        this.updateSliderBackground(donation);
+        
+        // Save to localStorage for persistence
+        this.saveToLocalStorage(donation);
+    }
+    
+    handleSliderKeyPress(key) {
+        let currentValue = parseInt(this.donationSlider.value);
+        const step = parseInt(this.donationSlider.step) || 100;
+        const min = parseInt(this.donationSlider.min);
+        const max = parseInt(this.donationSlider.max);
+        
+        switch(key) {
+            case 'ArrowUp':
+            case 'ArrowRight':
+                currentValue = Math.min(currentValue + step, max);
+                break;
+            case 'ArrowDown':
+            case 'ArrowLeft':
+                currentValue = Math.max(currentValue - step, min);
+                break;
+        }
+        
+        this.donationSlider.value = currentValue;
+        this.updateCalculator();
+    }
+    
+    updateSliderBackground(value) {
+        const min = parseInt(this.donationSlider.min);
+        const max = parseInt(this.donationSlider.max);
+        const percentage = ((value - min) / (max - min)) * 100;
+        
+        this.donationSlider.style.background = `
+            linear-gradient(to right, 
+                var(--primary-orange) 0%, 
+                var(--primary-orange) ${percentage}%, 
+                var(--medium-gray) ${percentage}%, 
+                var(--medium-gray) 100%)
+        `;
+    }
+    
+    formatNumber(num) {
+        return new Intl.NumberFormat('en-KE').format(num);
+    }
+    
+    formatCurrency(amount) {
+        return new Intl.NumberFormat('en-KE', {
+            style: 'currency',
+            currency: 'KES',
+            minimumFractionDigits: 0
+        }).format(amount).replace('KES', 'KSH');
+    }
+    
+    saveToLocalStorage(donation) {
+        try {
+            localStorage.setItem('microokoa_last_donation', donation);
+        } catch (e) {
+            console.warn('Could not save to localStorage:', e);
+        }
+    }
+    
+    loadFromLocalStorage() {
+        try {
+            const savedDonation = localStorage.getItem('microokoa_last_donation');
+            if (savedDonation) {
+                this.donationSlider.value = savedDonation;
+                this.updateCalculator();
+            }
+        } catch (e) {
+            console.warn('Could not load from localStorage:', e);
+        }
+    }
+    
+    handleCalculate() {
+        const donation = parseInt(this.donationSlider.value);
+        const loan = donation * 10;
+        
+        // Track event
+        if (window.Microokoa) {
+            window.Microokoa.trackEvent('Calculator Calculate', `Donation: ${donation}, Loan: ${loan}`);
+        }
+        
+        // Show calculation results in a more prominent way
+        this.showCalculationResults(donation, loan);
+    }
+    
+    handleDonate() {
+        const donation = parseInt(this.donationSlider.value);
+        
+        // Track event
+        if (window.Microokoa) {
+            window.Microokoa.trackEvent('Calculator Donate', `Amount: ${donation}`);
+        }
+        
+        // Show donation modal or redirect
+        this.showDonationModal(donation);
+    }
+    
+    showCalculationResults(donation, loan) {
+        // Create results overlay
+        const resultsOverlay = document.createElement('div');
+        resultsOverlay.className = 'calculator-results-overlay';
+        resultsOverlay.innerHTML = `
+            <div class="results-modal">
+                <button class="close-results" aria-label="Close results">×</button>
+                <h3>Your Loan Calculation</h3>
+                <div class="results-summary">
+                    <div class="result-item highlight">
+                        <span class="result-label">Your Donation:</span>
+                        <span class="result-value">${this.formatCurrency(donation)}</span>
+                    </div>
+                    <div class="result-item highlight">
+                        <span class="result-label">Loan Access:</span>
+                        <span class="result-value">${this.formatCurrency(loan)}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Multiplier:</span>
+                        <span class="result-value">10x</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Community Impact:</span>
+                        <span class="result-value">${Math.floor(donation / 200)}+ people helped</span>
+                    </div>
+                </div>
+                <div class="results-actions">
+                    <button class="btn btn-primary" id="apply-now-btn">Apply Now</button>
+                    <button class="btn btn-outline" id="adjust-calculation-btn">Adjust Calculation</button>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(resultsOverlay);
+        
+        // Add event listeners
+        resultsOverlay.querySelector('.close-results').addEventListener('click', () => {
+            resultsOverlay.remove();
+        });
+        
+        resultsOverlay.querySelector('#apply-now-btn').addEventListener('click', () => {
+            this.redirectToApplication(donation);
+            resultsOverlay.remove();
+        });
+        
+        resultsOverlay.querySelector('#adjust-calculation-btn').addEventListener('click', () => {
+            resultsOverlay.remove();
+        });
+        
+        // Close on overlay click
+        resultsOverlay.addEventListener('click', (e) => {
+            if (e.target === resultsOverlay) {
+                resultsOverlay.remove();
+            }
+        });
+        
+        // Close on escape key
+        document.addEventListener('keydown', function closeOnEscape(e) {
+            if (e.key === 'Escape') {
+                resultsOverlay.remove();
+                document.removeEventListener('keydown', closeOnEscape);
+            }
+        });
+    }
+    
+    showDonationModal(donation) {
+        // Create donation modal
+        const donationModal = document.createElement('div');
+        donationModal.className = 'donation-modal-overlay';
+        donationModal.innerHTML = `
+            <div class="donation-modal">
+                <button class="close-donation" aria-label="Close donation modal">×</button>
+                <h3>Make a Donation</h3>
+                <p class="donation-description">Your donation of ${this.formatCurrency(donation)} will help ${Math.floor(donation / 200)}+ community members access loans.</p>
+                
+                <div class="donation-methods">
+                    <div class="donation-method">
+                        <input type="radio" id="method-mpesa" name="donation-method" value="mpesa" checked>
+                        <label for="method-mpesa">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>M-Pesa</span>
+                        </label>
+                    </div>
+                    <div class="donation-method">
+                        <input type="radio" id="method-airtel" name="donation-method" value="airtel">
+                        <label for="method-airtel">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>Airtel Money</span>
+                        </label>
+                    </div>
+                    <div class="donation-method">
+                        <input type="radio" id="method-bank" name="donation-method" value="bank">
+                        <label for="method-bank">
+                            <i class="fas fa-university"></i>
+                            <span>Bank Transfer</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="donation-amount-input">
+                    <label for="donation-amount-input">Donation Amount (KSH)</label>
+                    <input type="number" id="donation-amount-input" min="200" value="${donation}" step="100">
+                </div>
+                
+                <div class="donation-actions">
+                    <button class="btn btn-primary" id="proceed-donation-btn">Proceed to Payment</button>
+                    <button class="btn btn-outline" id="cancel-donation-btn">Cancel</button>
+                </div>
+                
+                <p class="donation-note">By proceeding, you agree to our <a href="#terms">Terms of Service</a> and <a href="#privacy">Privacy Policy</a>.</p>
+            </div>
+        `;
+        
+        document.body.appendChild(donationModal);
+        
+        // Add event listeners
+        donationModal.querySelector('.close-donation').addEventListener('click', () => {
+            donationModal.remove();
+        });
+        
+        donationModal.querySelector('#cancel-donation-btn').addEventListener('click', () => {
+            donationModal.remove();
+        });
+        
+        donationModal.querySelector('#proceed-donation-btn').addEventListener('click', () => {
+            this.processDonation(donationModal);
+        });
+        
+        donationModal.querySelector('#donation-amount-input').addEventListener('input', (e) => {
+            const newAmount = parseInt(e.target.value) || 200;
+            this.donationSlider.value = newAmount;
+            this.updateCalculator();
+        });
+        
+        // Close on overlay click
+        donationModal.addEventListener('click', (e) => {
+            if (e.target === donationModal) {
+                donationModal.remove();
+            }
+        });
+        
+        // Close on escape key
+        document.addEventListener('keydown', function closeOnEscape(e) {
+            if (e.key === 'Escape') {
+                donationModal.remove();
+                document.removeEventListener('keydown', closeOnEscape);
+            }
+        });
+    }
+    
+    processDonation(donationModal) {
+        const amountInput = donationModal.querySelector('#donation-amount-input');
+        const amount = parseInt(amountInput.value) || 200;
+        const method = donationModal.querySelector('input[name="donation-method"]:checked').value;
+        
+        // Validate amount
+        if (amount < 200) {
+            this.showError('Minimum donation amount is KSH 200');
+            return;
+        }
+        
+        // Track event
+        if (window.Microokoa) {
+            window.Microokoa.trackEvent('Donation Processed', `Amount: ${amount}, Method: ${method}`);
+        }
+        
+        // Simulate donation processing
+        this.showProcessingScreen(amount, method, donationModal);
+    }
+    
+    showProcessingScreen(amount, method, donationModal) {
+        donationModal.querySelector('.donation-modal').innerHTML = `
+            <div class="processing-screen">
+                <div class="processing-spinner"></div>
+                <h3>Processing Your Donation</h3>
+                <p class="processing-message">Please wait while we process your donation of ${this.formatCurrency(amount)} via ${method.toUpperCase()}...</p>
+                <div class="processing-steps">
+                    <div class="step active">Validating</div>
+                    <div class="step">Processing</div>
+                    <div class="step">Confirming</div>
+                </div>
+            </div>
+        `;
+        
+        // Simulate processing steps
+        setTimeout(() => {
+            this.showDonationSuccess(amount);
+        }, 3000);
+    }
+    
+    showDonationSuccess(amount) {
+        const donationModal = document.querySelector('.donation-modal-overlay');
+        
+        donationModal.querySelector('.donation-modal').innerHTML = `
+            <div class="success-screen">
+                <div class="success-icon">✓</div>
+                <h3>Donation Successful!</h3>
+                <p class="success-message">Thank you for your donation of ${this.formatCurrency(amount)}. You can now apply for a loan worth ${this.formatCurrency(amount * 10)}.</p>
+                
+                <div class="success-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Transaction ID:</span>
+                        <span class="detail-value">TXN-${Date.now().toString().slice(-8)}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Date:</span>
+                        <span class="detail-value">${new Date().toLocaleDateString()}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Status:</span>
+                        <span class="detail-value success">Completed</span>
+                    </div>
+                </div>
+                
+                <div class="success-actions">
+                    <button class="btn btn-primary" id="apply-loan-now-btn">Apply for Loan Now</button>
+                    <button class="btn btn-outline" id="close-success-btn">Close</button>
+                </div>
+                
+                <p class="success-note">A receipt has been sent to your registered email/mobile number.</p>
+            </div>
+        `;
+        
+        // Add event listeners for success screen
+        donationModal.querySelector('#apply-loan-now-btn').addEventListener('click', () => {
+            this.redirectToApplication(amount);
+            donationModal.remove();
+        });
+        
+        donationModal.querySelector('#close-success-btn').addEventListener('click', () => {
+            donationModal.remove();
+        });
+    }
+    
+    redirectToApplication(donation) {
+        // Redirect to application page with donation amount as parameter
+        const url = `#apply?donation=${donation}`;
+        window.location.href = url;
+    }
+    
+    showError(message) {
+        // Show error message
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'calculator-error';
+        errorDiv.textContent = message;
+        errorDiv.setAttribute('role', 'alert');
+        
+        const calculator = document.querySelector('.calculator-card');
+        calculator.appendChild(errorDiv);
+        
+        // Remove error after 5 seconds
+        setTimeout(() => {
+            errorDiv.remove();
+        }, 5000);
+    }
+}
+
+// Initialize calculator when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    const calculator = new LoanCalculator();
+    
+    // Make calculator available globally
+    window.MicrookoaCalculator = calculator;
+});
