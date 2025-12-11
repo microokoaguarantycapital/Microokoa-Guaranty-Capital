@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Node
+node_modules/
+package-lock.json
+
+# Local development
+.env
+*.local
+
+# Temporary files
+*.tmp
+*.temp
