@@ -1,3 +1,25 @@
+// Add this function to ensure libraries are loaded
+function checkCarouselDependencies() {
+    if (typeof $ === 'undefined' || typeof $.fn.owlCarousel === 'undefined') {
+        console.error('Owl Carousel or jQuery not loaded. Slider disabled.');
+        return false;
+    }
+    return true;
+}
+
+// Modify your initializeCarousels function
+function initializeCarousels() {
+    if (!checkCarouselDependencies()) return;
+
+    // Your existing Owl Carousel initialization code from the commit goes here
+    $('.hero-slider').owlCarousel({
+        items: 1,
+        loop: true,
+        autoplay: true,
+        autoplayTimeout: 5000,
+        // ... keep the rest of your settings
+    });
+}
 // Microokoa Guaranty Capital - Main JavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -496,3 +518,4 @@ if ('serviceWorker' in navigator) {
             });
     });
 }
+
