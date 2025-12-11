@@ -1,16 +1,270 @@
 {
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
   "name": "Microokoa Guaranty Capital",
   "short_name": "Microokoa",
-  "description": "Donation-based community financing for Kenya",
+  "description": "Community-powered microfinance platform. Donate Today, Borrow Now! Access loans worth 10x your donation.",
   "start_url": "/",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "browser"],
+  "orientation": "portrait-primary",
   "background_color": "#FFFFFF",
   "theme_color": "#006400",
+  "categories": ["finance", "business", "productivity", "lifestyle"],
+  "lang": "en",
+  "dir": "ltr",
+  "scope": "/",
+  "id": "/",
+  
   "icons": [
     {
       "src": "assets/favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "sizes": "16x16 32x32 48x48",
       "type": "image/x-icon"
+    },
+    {
+      "src": "assets/logo.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/logo.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/icon-72x72.png",
+      "type": "image/png",
+      "sizes": "72x72",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-96x96.png",
+      "type": "image/png",
+      "sizes": "96x96",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-128x128.png",
+      "type": "image/png",
+      "sizes": "128x128",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-144x144.png",
+      "type": "image/png",
+      "sizes": "144x144",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-152x152.png",
+      "type": "image/png",
+      "sizes": "152x152",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-384x384.png",
+      "type": "image/png",
+      "sizes": "384x384",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
-  ]
+  ],
+  
+  "screenshots": [
+    {
+      "src": "assets/app-preview.png",
+      "type": "image/png",
+      "sizes": "1280x720",
+      "form_factor": "wide",
+      "label": "Microokoa Guaranty Capital Desktop Dashboard"
+    },
+    {
+      "src": "assets/app-preview-mobile.png",
+      "type": "image/png",
+      "sizes": "750x1334",
+      "form_factor": "narrow",
+      "label": "Microokoa Guaranty Capital Mobile App Interface"
+    }
+  ],
+  
+  "shortcuts": [
+    {
+      "name": "Make Donation",
+      "short_name": "Donate",
+      "description": "Donate to community fund and unlock loans",
+      "url": "/#donate",
+      "icons": [
+        {
+          "src": "assets/donate-icon.svg",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Apply for QuickLoan",
+      "short_name": "QuickLoan",
+      "description": "Apply for emergency loan within 24 hours",
+      "url": "/#quickloans",
+      "icons": [
+        {
+          "src": "assets/loan-icon.svg",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Loan Calculator",
+      "short_name": "Calculator",
+      "description": "Calculate your loan access amount",
+      "url": "/#calculator",
+      "icons": [
+        {
+          "src": "assets/calculator-icon.svg",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Contact Support",
+      "short_name": "Support",
+      "description": "Get help from our customer service team",
+      "url": "/#contact",
+      "icons": [
+        {
+          "src": "assets/support-icon.svg",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ],
+  
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.microokoa.guaranty.capital",
+      "id": "com.microokoa.guaranty.capital"
+    },
+    {
+      "platform": "itunes",
+      "url": "https://apps.apple.com/ke/app/microokoa-guaranty-capital/id1234567890"
+    }
+  ],
+  
+  "prefer_related_applications": true,
+  
+  "protocol_handlers": [
+    {
+      "protocol": "microokoa",
+      "url": "/#%s"
+    }
+  ],
+  
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  
+  "share_target": {
+    "action": "/#share",
+    "method": "GET",
+    "enctype": "application/x-www-form-urlencoded",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  
+  "launch_handler": {
+    "client_mode": "auto"
+  },
+  
+  "handle_links": "preferred",
+  
+  "file_handlers": [
+    {
+      "action": "/#upload",
+      "accept": {
+        "application/pdf": [".pdf"],
+        "image/*": [".jpg", ".jpeg", ".png"]
+      }
+    }
+  ],
+  
+  "permissions": [
+    "clipboard-write",
+    "clipboard-read",
+    "notifications"
+  ],
+  
+  "serviceworker": {
+    "src": "/sw.js",
+    "scope": "/",
+    "use_cache": true
+  },
+  
+  "iarc_rating_id": "e6d5b2c7-8b1d-4a3f-9c2e-1f0d9a8b7c6e",
+  
+  "features": [
+    "Cross Platform",
+    "fast",
+    "simple",
+    "secure",
+    "Offline Access"
+  ],
+  
+  "suggested_keyboard_shortcuts": [
+    {
+      "key": "Ctrl+Shift+D",
+      "description": "Navigate to Donate section"
+    },
+    {
+      "key": "Ctrl+Shift+L",
+      "description": "Navigate to Loans section"
+    },
+    {
+      "key": "Ctrl+Shift+C",
+      "description": "Open Calculator"
+    }
+  ],
+  
+  "edge_actions": [
+    {
+      "name": "Calculate Loan",
+      "action": "/#calculator",
+      "icon": "assets/calculator-icon.svg"
+    },
+    {
+      "name": "Quick Donate",
+      "action": "/#donate",
+      "icon": "assets/donate-icon.svg"
+    }
+  ],
+  
+  "url_handlers": [
+    {
+      "origin": "https://microokoa.com"
+    }
+  ],
+  
+  "background": {
+    "service_worker": "sw.js",
+    "type": "module"
+  }
 }
