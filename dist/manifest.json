@@ -1,0 +1,91 @@
+{
+  "name": "Microokoa Guaranty Capital",
+  "short_name": "Microokoa",
+  "description": "Community-powered microfinance - Donate Today, Borrow Now!",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#006400",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "assets/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "assets/icon-72x72.png",
+      "type": "image/png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "assets/icon-96x96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "assets/icon-128x128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "assets/icon-144x144.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "assets/icon-152x152.png",
+      "type": "image/png",
+      "sizes": "152x152"
+    },
+    {
+      "src": "assets/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "assets/icon-384x384.png",
+      "type": "image/png",
+      "sizes": "384x384"
+    },
+    {
+      "src": "assets/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "categories": ["finance", "business", "lifestyle"],
+  "lang": "en",
+  "dir": "ltr",
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.microokoa.app"
+    },
+    {
+      "platform": "itunes",
+      "url": "https://apps.apple.com/app/microokoa-guaranty-capital/id123456789"
+    }
+  ],
+  "prefer_related_applications": true,
+  "shortcuts": [
+    {
+      "name": "Make Donation",
+      "short_name": "Donate",
+      "description": "Donate to community fund",
+      "url": "/#donate"
+    },
+    {
+      "name": "Apply for Loan",
+      "short_name": "Apply",
+      "description": "Apply for QuickLoan or BusinessLoan",
+      "url": "/#borrow"
+    },
+    {
+      "name": "Contact Support",
+      "short_name": "Contact",
+      "description": "Get help from our team",
+      "url": "/#contact"
+    }
+  ]
+}

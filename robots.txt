@@ -1,0 +1,9 @@
+# File: robots.txt
+User-agent: *
+Allow: /
+Disallow: /private/
+Disallow: /admin/
+
+Sitemap: https://microokoaguarantycapital.com/sitemap.xml
+
+# Crawl-delay: 10

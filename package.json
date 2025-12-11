@@ -1,0 +1,180 @@
+{
+  "name": "microokoa-guaranty-capital-website",
+  "version": "1.0.0",
+  "description": "Professional microfinance website for Microokoa Guaranty Capital - Donate Today, Borrow Now! Community-powered financing platform.",
+  "main": "index.html",
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "live-server --port=8080 --host=localhost --watch=index.html,styles.css,script.js,manifest.json,sw.js --open=/",
+    "build": "npm run build:icons && npm run build:css && npm run build:js && npm run build:html",
+    "build:icons": "node scripts/generate-icons.js",
+    "build:css": "cleancss -o dist/styles.min.css styles.css && npm run build:css-append",
+    "build:css-append": "cat node_modules/@fortawesome/fontawesome-free/css/all.min.css node_modules/owl.carousel/dist/assets/owl.carousel.min.css node_modules/owl.carousel/dist/assets/owl.theme.default.min.css > dist/vendor.css",
+    "build:js": "terser script.js -o dist/script.min.js --compress --mangle && npm run build:js-append",
+    "build:js-append": "cat node_modules/jquery/dist/jquery.min.js node_modules/owl.carousel/dist/owl.carousel.min.js > dist/vendor.js",
+    "build:html": "html-minifier-terser --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype --minify-css true --minify-js true -o dist/index.html index.html",
+    "build:pwa": "npm run build && npm run generate-sw",
+    "generate-sw": "workbox generateSW workbox-config.js",
+    "inject-manifest": "workbox injectManifest workbox-config.js",
+    "test": "npm run test:html && npm run test:css && npm run test:js && npm run test:accessibility",
+    "test:html": "html-validate index.html",
+    "test:css": "stylelint styles.css",
+    "test:js": "eslint script.js",
+    "test:accessibility": "pa11y-ci --sitemap http://localhost:8080/sitemap.xml",
+    "test:lighthouse": "lighthouse http://localhost:8080 --output json --output html --output-path ./reports/lighthouse",
+    "test:performance": "npm run test:lighthouse",
+    "audit": "npm audit && npm run audit:security",
+    "audit:security": "snyk test",
+    "lint": "npm run lint:css && npm run lint:js && npm run lint:html",
+    "lint:css": "stylelint styles.css --fix",
+    "lint:js": "eslint script.js --fix",
+    "lint:html": "html-validate index.html --fix",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,scss,md,html}\"",
+    "preview": "serve dist -p 8080",
+    "deploy": "npm run build && npm run deploy:ftp",
+    "deploy:ftp": "node scripts/deploy-ftp.js",
+    "deploy:netlify": "netlify deploy --prod",
+    "deploy:github": "gh-pages -d dist",
+    "deploy:aws": "aws s3 sync dist s3://microokoa-guaranty-capital --delete",
+    "deploy:firebase": "firebase deploy --only hosting",
+    "backup": "node scripts/backup.js",
+    "restore": "node scripts/restore.js",
+    "analyze": "npm run analyze:bundles && npm run analyze:images",
+    "analyze:bundles": "source-map-explorer dist/script.min.js --html report.html",
+    "analyze:images": "imageoptim --directory assets --quit",
+    "optimize": "npm run optimize:images && npm run optimize:fonts",
+    "optimize:images": "imagemin assets/* --out-dir=dist/assets",
+    "optimize:fonts": "fontmin node_modules/@fortawesome/fontawesome-free/webfonts/*.ttf --text-file=glyphs.txt --out-dir=dist/fonts",
+    "security": "npm run security:headers && npm run security:csp",
+    "security:headers": "node scripts/generate-security-headers.js",
+    "security:csp": "node scripts/generate-csp.js",
+    "generate-sitemap": "node scripts/generate-sitemap.js",
+    "generate-robots": "node scripts/generate-robots.js",
+    "seo": "npm run generate-sitemap && npm run generate-robots",
+    "pwa": "npm run generate-sw && npm run manifest",
+    "manifest": "node scripts/generate-manifest.js",
+    "icons": "npm run build:icons",
+    "docker:build": "docker build -t microokoa-website .",
+    "docker:run": "docker run -p 8080:80 microokoa-website",
+    "docker:deploy": "npm run docker:build && docker push microokoa-website",
+    "update": "npm update && npm run audit",
+    "clean": "rm -rf dist && rm -rf node_modules && rm -rf reports",
+    "clean:dist": "rm -rf dist",
+    "clean:cache": "rm -rf .cache",
+    "postinstall": "npm run build:icons"
+  },
+  "keywords": [
+    "microfinance",
+    "kenya",
+    "financial-inclusion",
+    "community-financing",
+    "donation-based-loans",
+    "pwa",
+    "responsive-design",
+    "mobile-first",
+    "microokoa",
+    "financial-technology"
+  ],
+  "author": {
+    "name": "Microokoa Guaranty Capital",
+    "email": "microokoaguarantycapital@gmail.com",
+    "url": "https://microokoaguarantycapital.com"
+  },
+  "contributors": [
+    {
+      "name": "Job Simiyu",
+      "email": "jobs8-a11y@example.com",
+      "url": "https://github.com/jobs8-a11y"
+    }
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microokoa/guaranty-capital-website.git"
+  },
+  "bugs": {
+    "url": "https://github.com/microokoa/guaranty-capital-website/issues"
+  },
+  "homepage": "https://microokoaguarantycapital.com",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "> 1%",
+    "not dead",
+    "not op_mini all",
+    "iOS >= 12",
+    "Android >= 5",
+    "Firefox ESR"
+  ],
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.4.0",
+    "jquery": "^3.7.0",
+    "owl.carousel": "^2.3.4"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.15",
+    "clean-css-cli": "^5.6.2",
+    "cssnano": "^6.0.1",
+    "eslint": "^8.47.0",
+    "eslint-config-prettier": "^9.0.0",
+    "fontmin": "^0.9.9",
+    "gh-pages": "^5.0.0",
+    "html-minifier-terser": "^7.2.0",
+    "html-validate": "^7.20.0",
+    "http-server": "^14.1.1",
+    "imagemin": "^8.0.1",
+    "imagemin-cli": "^7.0.0",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-pngquant": "^10.0.0",
+    "imagemin-svgo": "^10.0.1",
+    "imageoptim-cli": "^2.0.1",
+    "lighthouse": "^11.0.0",
+    "live-server": "^1.2.2",
+    "node-sass": "^9.0.0",
+    "pa11y-ci": "^3.0.1",
+    "postcss": "^8.4.29",
+    "postcss-cli": "^10.1.0",
+    "prettier": "^3.0.2",
+    "sharp": "^0.33.0",
+    "serve": "^14.2.0",
+    "source-map-explorer": "^2.5.3",
+    "stylelint": "^15.10.3",
+    "stylelint-config-standard": "^34.0.0",
+    "terser": "^5.19.4",
+    "workbox-cli": "^7.0.0"
+  },
+  "optionalDependencies": {
+    "@aws-sdk/client-s3": "^3.398.0",
+    "firebase-tools": "^12.5.0",
+    "ftp-deploy": "^2.4.3",
+    "netlify-cli": "^15.0.0",
+    "snyk": "^1.1198.0"
+  },
+  "private": true,
+  "config": {
+    "ftp": {
+      "host": "ftp.microokoaguarantycapital.com",
+      "user": "username",
+      "password": "password",
+      "remoteRoot": "/public_html/"
+    },
+    "aws": {
+      "bucket": "microokoa-guaranty-capital",
+      "region": "eu-west-1"
+    },
+    "netlify": {
+      "siteId": "your-site-id",
+      "token": "your-token"
+    },
+    "github": {
+      "repo": "microokoa/guaranty-capital-website",
+      "branch": "gh-pages"
+    },
+    "firebase": {
+      "project": "microokoa-guaranty-capital"
+    }
+  }
+}
