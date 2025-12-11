@@ -1,16 +1,146 @@
 {
   "name": "Microokoa Guaranty Capital",
-  "short_name": "Microokoa",
-  "start_url": "/index.html",
+  "short_name": "Microokoa GC",
+  "description": "Donation-based community microfinance empowering the unbanked in Kenya. Donate today, borrow now with 10x multiplier loans.",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#FFFFFF",
   "theme_color": "#006400",
-  "description": "A donation-driven community development financial institution providing microfinance in Kenya.",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["finance", "business", "lending", "community"],
   "icons": [
     {
-      "src": "images/favicon-50x50.png",
-      "sizes": "50x50",
-      "type": "image/png"
+      "src": "assets/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "assets/screenshot-mobile.png",
+      "sizes": "375x667",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Mobile view of loan calculator"
+    },
+    {
+      "src": "assets/screenshot-desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Desktop view showing all features"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Donate Now",
+      "short_name": "Donate",
+      "description": "Make a donation to access loans",
+      "url": "/#donate",
+      "icons": [
+        {
+          "src": "assets/shortcut-donate.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Loan Calculator",
+      "short_name": "Calculator",
+      "description": "Calculate your loan access amount",
+      "url": "/#calculator",
+      "icons": [
+        {
+          "src": "assets/shortcut-calculator.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Apply for Loan",
+      "short_name": "Apply",
+      "description": "Start your loan application",
+      "url": "/#borrow",
+      "icons": [
+        {
+          "src": "assets/shortcut-apply.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": true,
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.microokoa.app",
+      "id": "com.microokoa.app"
+    },
+    {
+      "platform": "itunes",
+      "url": "https://apps.apple.com/ke/app/microokoa-guaranty-capital/id1234567890"
+    }
+  ],
+  "features": [
+    "Loan Calculator",
+    "Digital Wallet Integration",
+    "Community Donations",
+    "Mobile Money Payments",
+    "Real-time Application Tracking"
+  ],
+  "permissions": [
+    "notifications"
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+microokoa",
+      "url": "/handle?type=%s"
     }
   ]
 }
