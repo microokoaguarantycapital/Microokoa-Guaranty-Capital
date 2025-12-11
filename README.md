@@ -1,12 +1,9 @@
 # Microokoa Guaranty Capital Website
 
-![Microokoa Guaranty Capital](https://img.shields.io/badge/Microokoa-Guaranty%20Capital-006400?style=for-the-badge)
-![Responsive Design](https://img.shields.io/badge/Responsive-Yes-FF6600?style=for-the-badge)
-![PWA Ready](https://img.shields.io/badge/PWA-Ready-006400?style=for-the-badge)
-
-## Overview
-
 A professional, responsive website for Microokoa Guaranty Capital, a donation-based community microfinance institution serving the unbanked population in Kenya. The website features a modern design with seamless integration of donation-loan mechanics and mobile money integrations.
+
+## Live Website
+Visit: [https://microokoaguarantycapital.github.io/Microokoa-Guaranty-Capital/](https://microokoaguarantycapital.github.io/Microokoa-Guaranty-Capital/)
 
 ## Features
 
@@ -15,28 +12,19 @@ A professional, responsive website for Microokoa Guaranty Capital, a donation-ba
 - **Loan Calculator**: Interactive 10x multiplier calculator with real-time updates
 - **Image Slider**: Owl Carousel implementation with auto-rotation
 - **Digital Wallet Integration**: M-Pesa and Airtel Money modules
-- **Trust Indicators**: SSL badges, testimonials, partnership logos
-- **Mobile-First Navigation**: Hamburger menu with dropdown support
-- **PWA Ready**: Installable web application
+- **Mobile-First Navigation**: Hamburger menu for mobile devices
 
 ### 🎨 Design Elements
 - **Color Scheme**:
-  - Primary: Forest Green (#006400)
-  - Secondary: Safety Orange (#FF6600)
-  - Background: White (#FFFFFF)
-  - Text: Black (#000000)
-- **Typography**: Open Sans font family
-- **Layout**: 12-column grid system with 20px gutters
-- **Animations**: Smooth transitions and hover effects
+  - Primary: Forest Green (#006400) - buttons, highlights, icons
+  - Secondary: Safety Orange (#FF6600) - CTAs, hover effects
+  - Background: White (#FFFFFF) for all sections
+- **Typography**: Open Sans font (sans-serif)
+- **Layout**: 12-column responsive grid with 20px gutters
 
-### 📱 Sections
-1. **Header**: Fixed navigation with logo, menu, and CTA
-2. **Hero**: Full-width slider with loan calculator
-3. **How It Works**: Three-step donation process
-4. **Loan Products**: QuickLoans, BusinessLoans, Donate & Access
-5. **Digital Wallet**: M-Pesa & Airtel Money integration
-6. **Testimonials**: Customer success stories
-7. **App Download**: Mobile application promotion
-8. **Footer**: Comprehensive information and links
+### 📱 Responsive Breakpoints
+- **Mobile**: 320px - 767px (single column)
+- **Tablet**: 768px - 1199px (2-column grid)
+- **Desktop**: 1200px+ (3-4 column grid)
 
-## File Structure
+## Project Structure
