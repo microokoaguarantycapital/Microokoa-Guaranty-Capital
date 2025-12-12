@@ -2367,3 +2367,623 @@ document.head.appendChild(styleSheet);
 
 // Initialize the application when DOM is loaded
 document.addEventListener('DOMContentLoaded', initApp);
+
+// PWA Functionality
+class PWAManager {
+    constructor() {
+        this.deferredPrompt = null;
+        this.isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+        this.init();
+    }
+    
+    init() {
+        console.log('PWA Manager Initializing...');
+        this.registerServiceWorker();
+        this.setupInstallPrompt();
+        this.setupNetworkStatus();
+        this.setupSplashScreen();
+        this.setupShareTarget();
+    }
+    
+    registerServiceWorker() {
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful:', registration);
+                        
+                        // Check for updates
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            console.log('New service worker found:', newWorker);
+                            
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    this.showUpdatePrompt();
+                                }
+                            });
+                        });
+                    })
+                    .catch(error => {
+                        console.log('ServiceWorker registration failed:', error);
+                    });
+            });
+        }
+    }
+    
+    setupInstallPrompt() {
+        // Listen for beforeinstallprompt event
+        window.addEventListener('beforeinstallprompt', (e) => {
+            console.log('beforeinstallprompt event fired');
+            e.preventDefault();
+            this.deferredPrompt = e;
+            this.showInstallPrompt();
+        });
+        
+        // Listen for app installed event
+        window.addEventListener('appinstalled', () => {
+            console.log('PWA installed successfully');
+            this.deferredPrompt = null;
+            this.hideInstallPrompt();
+            this.showNotification('Microokoa app installed successfully!', 'success');
+        });
+        
+        // Check if already installed
+        if (this.isStandalone) {
+            console.log('App is running in standalone mode');
+            this.hideInstallPrompt();
+        }
+    }
+    
+    setupNetworkStatus() {
+        // Online/offline detection
+        window.addEventListener('online', () => {
+            console.log('App is online');
+            this.hideOfflineBanner();
+            this.showNotification('You are back online', 'success');
+        });
+        
+        window.addEventListener('offline', () => {
+            console.log('App is offline');
+            this.showOfflineBanner();
+            this.showNotification('You are offline. Some features may not work.', 'warning');
+        });
+        
+        // Initial check
+        if (!navigator.onLine) {
+            this.showOfflineBanner();
+        }
+    }
+    
+    setupSplashScreen() {
+        // Show splash screen for 2 seconds
+        setTimeout(() => {
+            const splashScreen = document.getElementById('splash-screen');
+            if (splashScreen) {
+                splashScreen.classList.add('hide');
+                setTimeout(() => {
+                    splashScreen.style.display = 'none';
+                }, 300);
+            }
+        }, 2000);
+    }
+    
+    setupShareTarget() {
+        // Handle share target if app was launched via Web Share Target API
+        if (window.location.search.includes('share-target')) {
+            this.showShareTarget();
+        }
+    }
+    
+    showInstallPrompt() {
+        // Create install prompt if it doesn't exist
+        if (!document.getElementById('pwa-install-prompt')) {
+            const promptHTML = `
+                <div class="pwa-install-prompt" id="pwa-install-prompt">
+                    <div class="prompt-content">
+                        <h4>Install Microokoa App</h4>
+                        <p>Get faster access to loans and donations. Install our app for the best experience.</p>
+                    </div>
+                    <div class="pwa-install-buttons">
+                        <button class="pwa-install-btn" id="install-pwa-btn">Install</button>
+                        <button class="pwa-install-btn pwa-dismiss-btn" id="dismiss-install-btn">Not Now</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', promptHTML);
+            
+            // Add event listeners
+            document.getElementById('install-pwa-btn').addEventListener('click', () => {
+                this.installPWA();
+            });
+            
+            document.getElementById('dismiss-install-btn').addEventListener('click', () => {
+                this.hideInstallPrompt();
+            });
+        }
+        
+        // Show the prompt
+        const prompt = document.getElementById('pwa-install-prompt');
+        prompt.classList.add('show');
+        
+        // Auto-hide after 10 seconds
+        setTimeout(() => {
+            if (prompt.classList.contains('show')) {
+                this.hideInstallPrompt();
+            }
+        }, 10000);
+    }
+    
+    hideInstallPrompt() {
+        const prompt = document.getElementById('pwa-install-prompt');
+        if (prompt) {
+            prompt.classList.remove('show');
+        }
+        
+        // Also hide install button in header
+        const installBtn = document.getElementById('install-app-btn');
+        if (installBtn) {
+            installBtn.classList.remove('show');
+        }
+    }
+    
+    installPWA() {
+        if (this.deferredPrompt) {
+            this.deferredPrompt.prompt();
+            
+            this.deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the install prompt');
+                } else {
+                    console.log('User dismissed the install prompt');
+                }
+                this.deferredPrompt = null;
+            });
+        }
+        
+        this.hideInstallPrompt();
+    }
+    
+    showOfflineBanner() {
+        // Create offline banner if it doesn't exist
+        if (!document.getElementById('offline-banner')) {
+            const bannerHTML = `
+                <div class="offline-banner" id="offline-banner">
+                    <span>You are currently offline. Some features may not be available.</span>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('afterbegin', bannerHTML);
+        }
+        
+        // Show the banner
+        const banner = document.getElementById('offline-banner');
+        banner.classList.add('show');
+    }
+    
+    hideOfflineBanner() {
+        const banner = document.getElementById('offline-banner');
+        if (banner) {
+            banner.classList.remove('show');
+        }
+    }
+    
+    showUpdatePrompt() {
+        const shouldUpdate = confirm('A new version of Microokoa is available. Would you like to update now?');
+        if (shouldUpdate) {
+            window.location.reload();
+        }
+    }
+    
+    showShareTarget() {
+        // Create share target modal
+        const shareModalHTML = `
+            <div class="share-target show" id="share-target">
+                <div class="share-target-content">
+                    <h3 class="share-target-title">Share with Microokoa</h3>
+                    <form class="share-target-form" id="share-target-form">
+                        <div class="form-group">
+                            <label for="share-title">Title</label>
+                            <input type="text" id="share-title" name="title">
+                        </div>
+                        <div class="form-group">
+                            <label for="share-text">Message</label>
+                            <textarea id="share-text" name="text" rows="4"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="share-url">URL</label>
+                            <input type="url" id="share-url" name="url">
+                        </div>
+                        <div class="form-buttons">
+                            <button type="submit" class="cta-button">Share</button>
+                            <button type="button" class="cta-button secondary" id="cancel-share">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        `;
+        
+        document.body.insertAdjacentHTML('beforeend', shareModalHTML);
+        
+        // Parse shared data from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        document.getElementById('share-title').value = urlParams.get('title') || '';
+        document.getElementById('share-text').value = urlParams.get('text') || '';
+        document.getElementById('share-url').value = urlParams.get('url') || '';
+        
+        // Add event listeners
+        document.getElementById('share-target-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.handleShareSubmit();
+        });
+        
+        document.getElementById('cancel-share').addEventListener('click', () => {
+            this.hideShareTarget();
+        });
+    }
+    
+    hideShareTarget() {
+        const shareTarget = document.getElementById('share-target');
+        if (shareTarget) {
+            shareTarget.classList.remove('show');
+            setTimeout(() => {
+                shareTarget.remove();
+                // Clean URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }, 300);
+        }
+    }
+    
+    handleShareSubmit() {
+        const title = document.getElementById('share-title').value;
+        const text = document.getElementById('share-text').value;
+        const url = document.getElementById('share-url').value;
+        
+        console.log('Sharing content:', { title, text, url });
+        
+        // Here you would typically send this to your backend
+        // For now, just show a success message
+        this.showNotification('Content shared successfully!', 'success');
+        this.hideShareTarget();
+        
+        // Redirect to appropriate section
+        if (url.includes('donate')) {
+            loadSection('donate');
+        } else if (url.includes('loan')) {
+            loadSection('products');
+        }
+    }
+    
+    requestNotificationPermission() {
+        if ('Notification' in window && Notification.permission === 'default') {
+            Notification.requestPermission().then(permission => {
+                console.log('Notification permission:', permission);
+                if (permission === 'granted') {
+                    this.showNotification('Notifications enabled! You\'ll get updates about your loans and donations.', 'success');
+                }
+            });
+        }
+    }
+    
+    syncBackgroundData() {
+        if ('serviceWorker' in navigator && 'sync' in navigator.serviceWorker) {
+            navigator.serviceWorker.ready.then(registration => {
+                registration.sync.register('donation-sync').then(() => {
+                    console.log('Background sync registered');
+                }).catch(error => {
+                    console.log('Background sync registration failed:', error);
+                });
+            });
+        }
+    }
+    
+    checkForUpdate() {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.ready.then(registration => {
+                registration.update();
+            });
+        }
+    }
+    
+    getAppUsageStats() {
+        if ('getInstalledRelatedApps' in navigator) {
+            navigator.getInstalledRelatedApps().then(apps => {
+                console.log('Installed related apps:', apps);
+            });
+        }
+    }
+}
+
+// Initialize PWA Manager
+let pwaManager;
+
+function initPWA() {
+    pwaManager = new PWAManager();
+    
+    // Add install button to header
+    const headerCTA = document.querySelector('.header-cta');
+    if (headerCTA && !pwaManager.isStandalone) {
+        const installBtnHTML = `
+            <button class="install-app-btn" id="install-app-btn">
+                <i class="fas fa-download"></i> Install App
+            </button>
+        `;
+        headerCTA.insertAdjacentHTML('beforeend', installBtnHTML);
+        
+        document.getElementById('install-app-btn').addEventListener('click', () => {
+            pwaManager.installPWA();
+        });
+        
+        // Show install button if deferred prompt exists
+        if (pwaManager.deferredPrompt) {
+            document.getElementById('install-app-btn').classList.add('show');
+        }
+    }
+    
+    // Add splash screen
+    const splashHTML = `
+        <div class="splash-screen" id="splash-screen">
+            <img src="assets/logo.svg" alt="Microokoa" class="splash-logo">
+            <div class="splash-text">Microokoa Guaranty Capital</div>
+            <div class="splash-loading"></div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('afterbegin', splashHTML);
+}
+
+// Update the initApp function to include PWA initialization
+function initApp() {
+    console.log('Microokoa Guaranty Capital Website Initializing...');
+    
+    // Initialize PWA first
+    initPWA();
+    
+    // Then initialize all other modules
+    initNavigation();
+    initHeroSlider();
+    initLoanCalculator();
+    initTestimonialSlider();
+    initDynamicContent();
+    initEventListeners();
+    
+    // Set initial state
+    updateLoanCalculator();
+    
+    console.log('Website initialized successfully.');
+}
+
+// Add PWA-specific event listeners
+function initEventListeners() {
+    // ... existing event listeners ...
+    
+    // PWA-specific events
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+            // App became visible, check for updates
+            pwaManager?.checkForUpdate();
+        }
+    });
+    
+    // Periodic background sync (every 1 hour)
+    setInterval(() => {
+        pwaManager?.syncBackgroundData();
+    }, 3600000);
+    
+    // Request notification permission after user interaction
+    document.addEventListener('click', () => {
+        pwaManager?.requestNotificationPermission();
+    }, { once: true });
+}
+
+// Update notification function to use Web Notifications API if available
+function showNotification(message, type = 'info') {
+    // Try to use Web Notifications if permission is granted
+    if ('Notification' in window && Notification.permission === 'granted') {
+        const options = {
+            body: message,
+            icon: '/assets/icon-192x192.png',
+            badge: '/assets/badge-72x72.png',
+            tag: 'microokoa-notification',
+            requireInteraction: type === 'warning',
+            actions: [
+                {
+                    action: 'open',
+                    title: 'Open'
+                },
+                {
+                    action: 'close',
+                    title: 'Close'
+                }
+            ]
+        };
+        
+        const notification = new Notification('Microokoa Guaranty Capital', options);
+        
+        notification.onclick = () => {
+            window.focus();
+            notification.close();
+        };
+        
+        notification.onclose = () => {
+            console.log('Notification closed');
+        };
+        
+        // Auto-close after 5 seconds (except for warnings)
+        if (type !== 'warning') {
+            setTimeout(() => {
+                notification.close();
+            }, 5000);
+        }
+        
+        return;
+    }
+    
+    // Fallback to custom notification
+    // ... existing custom notification code ...
+// ============================================
+// CHECK ELIGIBILITY BUTTON FUNCTIONALITY
+// ============================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Find the "Check Eligibility" button
+    const checkEligibilityBtn = document.getElementById('checkEligibilityBtn');
+    
+    // If button is found, add click event
+    if (checkEligibilityBtn) {
+        checkEligibilityBtn.addEventListener('click', function(event) {
+            // Prevent default link behavior if it's an <a> tag
+            event.preventDefault();
+            
+            // Show eligibility form/modal (you can customize this)
+            showEligibilityForm();
+        });
+    } else {
+        console.log('Check Eligibility button not found');
+    }
+});
+
+// Function to show eligibility form
+function showEligibilityForm() {
+    // Create a simple modal/form for eligibility check
+    const formHTML = `
+        <div class="eligibility-modal" id="eligibilityModal" style="
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        ">
+            <div style="
+                background: white;
+                padding: 30px;
+                border-radius: 10px;
+                width: 90%;
+                max-width: 500px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            ">
+                <h2 style="color: #2c3e50; margin-bottom: 20px;">Check Your Eligibility</h2>
+                
+                <form id="eligibilityForm">
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; color: #34495e;">
+                            Monthly Income (KSH)
+                        </label>
+                        <input type="number" required style="
+                            width: 100%;
+                            padding: 10px;
+                            border: 1px solid #ddd;
+                            border-radius: 5px;
+                            font-size: 16px;
+                        " placeholder="e.g., 30000">
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; color: #34495e;">
+                            Previous Donation Amount (KSH)
+                        </label>
+                        <input type="number" required style="
+                            width: 100%;
+                            padding: 10px;
+                            border: 1px solid #ddd;
+                            border-radius: 5px;
+                            font-size: 16px;
+                        " placeholder="e.g., 500">
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 5px; color: #34495e;">
+                            Loan Purpose
+                        </label>
+                        <select style="
+                            width: 100%;
+                            padding: 10px;
+                            border: 1px solid #ddd;
+                            border-radius: 5px;
+                            font-size: 16px;
+                        ">
+                            <option value="business">Business Expansion</option>
+                            <option value="emergency">Emergency</option>
+                            <option value="education">Education</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px;">
+                        <button type="submit" style="
+                            flex: 1;
+                            background: #27ae60;
+                            color: white;
+                            border: none;
+                            padding: 12px;
+                            border-radius: 5px;
+                            font-size: 16px;
+                            cursor: pointer;
+                        ">Check Now</button>
+                        
+                        <button type="button" onclick="closeEligibilityModal()" style="
+                            flex: 1;
+                            background: #e74c3c;
+                            color: white;
+                            border: none;
+                            padding: 12px;
+                            border-radius: 5px;
+                            font-size: 16px;
+                            cursor: pointer;
+                        ">Cancel</button>
+                    </div>
+                </form>
+                
+                <p style="margin-top: 15px; font-size: 14px; color: #7f8c8d;">
+                    Eligibility requires minimum donation of Kshs 200 and proof of income.
+                </p>
+            </div>
+        </div>
+    `;
+    
+    // Add modal to page
+    document.body.insertAdjacentHTML('beforeend', formHTML);
+    
+    // Add form submission handler
+    document.getElementById('eligibilityForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        checkEligibility();
+    });
+}
+
+// Function to check eligibility
+function checkEligibility() {
+    const income = document.querySelector('#eligibilityForm input[type="number"]:first-of-type').value;
+    const donation = document.querySelector('#eligibilityForm input[type="number"]:last-of-type').value;
+    
+    // Simple eligibility logic (customize this)
+    if (donation >= 200) {
+        alert(`✅ ELIGIBLE!\n\nBased on your donation of Kshs ${donation}, you qualify for:\n• Loan Amount: Kshs ${donation * 10}\n• Processing: Within 24 hours\n\nPlease proceed with the full application.`);
+    } else {
+        alert(`❌ NOT ELIGIBLE YET\n\nMinimum donation required: Kshs 200\nYour donation: Kshs ${donation}\n\nPlease make a donation first to unlock borrowing.`);
+    }
+    
+    // Close modal after checking
+    closeEligibilityModal();
+}
+
+// Function to close modal
+function closeEligibilityModal() {
+    const modal = document.getElementById('eligibilityModal');
+    if (modal) {
+        modal.remove();
+    }
+}
+
+// Also allow closing modal with ESC key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeEligibilityModal();
+    }
+});
+
+}
